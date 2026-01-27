@@ -3,6 +3,7 @@ package relationaldbs.test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBConnectionTest {
@@ -19,8 +20,7 @@ public class DBConnectionTest {
 
 			createDatabase(conn);
 			String dropTableSQL = "drop table if exists users";
-			PreparedStatement ps=
-					conn.prepareStatement(dropTableSQL);
+			PreparedStatement ps = conn.prepareStatement(dropTableSQL);
 			ps.executeUpdate();
 			ps.close();
 			// table creation sql
@@ -32,23 +32,43 @@ public class DBConnectionTest {
 			ps1.close();
 			// insert sal
 			String insertSQL = "insert into users(id,usenname,psw, isVIP, balance) values ('18','Andres',1243,true,234.4),('20','Alejandro','123',false,234.3)";
-			
+
 			PreparedStatement ps11 = conn.prepareStatement(insertSQL);
 			System.out.println(ps11.executeUpdate());
 			ps11.close();
 			// delete sal
-			String deleteSQL = "DELETE FROM users WHERE usenname = 'Alejandro'";
-			// select psw, isVIP from users where username = 'Manolo' ;
-			PreparedStatement ps2 = conn.prepareStatement(deleteSQL);
-			System.out.println(ps2.executeUpdate());
-			ps11.close();
-			String selectSQL = "select * from users where usenname = 'Manolo";
+			
+			selectByName(conn, "Andres");
+			
+			
+			
+			
+			
+			deleteByName( conn, "Alejandro" );
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+
+	private static void selectByName(Connection conn, String name ) throws SQLException {
+		// TODO Auto-generated method stub
+		String selectSQL = "select * from users where usenname =" + name;
+		PreparedStatement ps3 = conn.prepareStatement(selectSQL);
+		System.out.println();
+		ResultSet rs = ps3.executeQuery();
+		
+	}
+
+	private static void deleteByName(Connection conn, String name) throws SQLException {
+		// TODO Auto-generated method stub
+		String deleteSQL = "DELETE FROM users WHERE usenname = "+ name;
+		// select psw, isVIP from users where username = 'Manolo' ;
+		PreparedStatement ps2 = conn.prepareStatement(deleteSQL);
+		System.out.println(ps2.executeUpdate());
+		ps2.close();
 	}
 
 	private static void createDatabase(Connection conn) {
