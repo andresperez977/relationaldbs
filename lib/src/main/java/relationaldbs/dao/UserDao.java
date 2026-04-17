@@ -20,5 +20,5 @@ public interface UserDao {
 	
 	public List<User> findall();
 	
-	
+	public  boolean createTable();
 }

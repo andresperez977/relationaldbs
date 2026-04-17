@@ -84,7 +84,7 @@ public class User {
 		return name;
 		
 	}
-	public User(Long id, String name, String password, double balance, String email,Integer phone, String age,String gender,String city) {
+	public User(Long id, String name, String password, double balance, String email,int phone, String age,String gender,String city) {
 		this.id=id;
 		this.name = name;
 		this.password = password;
@@ -95,4 +95,6 @@ public class User {
 		this.gender= gender;
 		this.city=city;
 	}
+
+
 }

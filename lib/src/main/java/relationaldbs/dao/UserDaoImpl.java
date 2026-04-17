@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+
 import relationaldbs.model.User;
 
 public class UserDaoImpl implements UserDao {
@@ -14,10 +15,17 @@ public class UserDaoImpl implements UserDao {
 
 	private static String username = "postgres";
 	private static String password = "Admin";
+	
+	String dropTableSQL = "drop table if exists users";
+	String createTableSQL = "create table if not exists users(" + "id serial,"
+			+ "name VARCHAR(255), " + "password VARCHAR(255)," +   "balance float," + "email VARCHAR(255)," + "phone numeric," 
+			+ "age VARCHAR(255)," + "gender VARCHAR(255)," + "city VARCHAR(255),"
+			+ "PRIMARY KEY (id)" + ")";
 
+	
 	@Override
-	public boolean insert(User user) {
-		// insert sql
+	public boolean insert(User user) {  
+				// insert sql
 
 		String insertSQL = "insert into users(name,password,balance,email,phone,age,gender,city) "
 				+ "values (?,?,?,?,?,?,?,?)";
@@ -67,6 +75,29 @@ public class UserDaoImpl implements UserDao {
 	public List<User> findall() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean createTable() {
+		// TODO Auto-generated method stub
+		try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+				PreparedStatement drop =
+						conn.prepareStatement(dropTableSQL ); PreparedStatement create =
+						conn.prepareStatement(createTableSQL );) {
+			
+			drop.executeUpdate();
+			create.executeUpdate();
+			
+			return true;
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		return false;
 	}
 
 }
