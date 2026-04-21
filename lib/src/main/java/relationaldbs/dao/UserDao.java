@@ -10,7 +10,7 @@ public interface UserDao {
 	public boolean insert(User user);
 	
 	
-	public boolean delete(User user);
+	public boolean delete(Long id);
 	
 	
 	public boolean update(User user);

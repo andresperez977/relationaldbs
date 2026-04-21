@@ -10,7 +10,7 @@ public class UserDaoTest {
 		UserDao userDao = new UserDaoImpl();
 		userDao.createTable();
 		userDao.insert(new User(1L, "Andrés", "Admin", 0," andres@gmail.com", 654678908, "20", "men", "Madrid"));
-		System.out.println();
-		
+		System.out.println(userDao.insert(new User(1L, "Andrés", "Admin", 0," andres@gmail.com", 654678908, "20", "men", "Madrid")));
+		System.out.println(userDao.delete(1L));
 	} 
 } 

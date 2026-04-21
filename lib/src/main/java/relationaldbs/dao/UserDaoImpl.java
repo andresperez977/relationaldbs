@@ -43,7 +43,7 @@ public class UserDaoImpl implements UserDao {
 			pss.setString(8, user.getCity());
 			pss.executeUpdate();
 			
-			
+			return true;
 			
 			
 		} catch (SQLException e) {
@@ -54,9 +54,23 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean delete(User user) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delete(Long id) {
+		 String deleteSQL = "DELETE FROM users WHERE id = ?";
+
+		    try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+		         PreparedStatement pss = conn.prepareStatement(deleteSQL)) {
+
+		        pss.setLong(1, id);
+		        pss.executeUpdate();
+
+		        return true;
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+
+		    return false;
+		
 	}
 
 	@Override
