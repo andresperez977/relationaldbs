@@ -9,7 +9,7 @@ public interface ProductDao {
 public boolean insert(Producto producto);
 	
 	
-	public boolean delete(Producto producto);
+	public boolean delete(Long id);
 	
 	
 	public boolean update(Producto producto);
