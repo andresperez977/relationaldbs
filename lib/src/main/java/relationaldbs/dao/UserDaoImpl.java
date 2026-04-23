@@ -13,10 +13,7 @@ import relationaldbs.model.User;
 
 public class UserDaoImpl implements UserDao {
 
-	private final static String postgresqlURL = "jdbc:postgresql://localhost:5432/postgres";
-
-	private static String username = "postgres";
-	private static String password = "Admin";
+	
 	
 	String dropTableSQL = "drop table if exists users";
 	String createTableSQL = "create table if not exists users(" + "id serial,"
@@ -32,7 +29,7 @@ public class UserDaoImpl implements UserDao {
 		String insertSQL = "insert into users(name,password,balance,email,phone,age,gender,city) "
 				+ "values (?,?,?,?,?,?,?,?)";
 
-		try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+		try (Connection conn = );
 				PreparedStatement pss =
 						conn.prepareStatement(insertSQL);) {
 			pss.setString(1,user.getName());

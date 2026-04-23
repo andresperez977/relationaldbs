@@ -11,9 +11,7 @@ import relationaldbs.model.Producto;
 
 public class ProductoDaoImpl implements ProductDao {
 
-    private final static String postgresqlURL = "jdbc:postgresql://localhost:5432/postgres";
-    private static String username = "postgres";
-    private static String password = "Admin";
+   
 
     String dropTableSQL = "drop table if exists productos";
     String createTableSQL = "create table if not exists productos(" +
