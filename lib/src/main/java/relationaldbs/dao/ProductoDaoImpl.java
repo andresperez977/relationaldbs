@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import relationaldbs.model.Producto;
+import relationaldbs.util.DBHelper;
 
 public class ProductoDaoImpl implements ProductDao {
 
@@ -28,7 +29,7 @@ public class ProductoDaoImpl implements ProductDao {
     public boolean insert(Producto producto) {
         String insertSQL = "insert into productos(name,price,category,brand,stock) values (?,?,?,?,?)";
 
-        try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+        try (Connection conn = DBHelper.getConnection();
              PreparedStatement pss = conn.prepareStatement(insertSQL)) {
 
             pss.setString(1, producto.getName());
@@ -50,7 +51,7 @@ public class ProductoDaoImpl implements ProductDao {
     public boolean delete(Long id) {
         String deleteSQL = "DELETE FROM productos WHERE id = ?";
 
-        try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+        try (Connection conn = DBHelper.getConnection();
              PreparedStatement pss = conn.prepareStatement(deleteSQL)) {
 
             pss.setLong(1, id);
@@ -69,7 +70,7 @@ public class ProductoDaoImpl implements ProductDao {
     public boolean update(Producto producto) {
         String updateSQL = "update productos set name = ?, price = ?, category = ?, brand = ?, stock = ? where id = ?";
 
-        try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+        try (Connection conn = DBHelper.getConnection();
              PreparedStatement pss = conn.prepareStatement(updateSQL)) {
 
             pss.setString(1, producto.getName());
@@ -93,7 +94,7 @@ public class ProductoDaoImpl implements ProductDao {
     public Producto find(Long id) {
         String findSQL = "SELECT * FROM productos WHERE id = ?";
 
-        try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+        try (Connection conn =DBHelper.getConnection();
              PreparedStatement pss = conn.prepareStatement(findSQL)) {
 
             pss.setLong(1, id);
@@ -114,7 +115,7 @@ public class ProductoDaoImpl implements ProductDao {
     public List<Producto> findall() {
         String findSQL = "SELECT * FROM productos";
 
-        try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+        try (Connection conn = DBHelper.getConnection();
              PreparedStatement pss = conn.prepareStatement(findSQL)) {
 
             ResultSet rs = pss.executeQuery();
@@ -132,7 +133,7 @@ public class ProductoDaoImpl implements ProductDao {
 
     @Override
     public boolean createTable() {
-        try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+        try (Connection conn = DBHelper.getConnection();
              PreparedStatement drop = conn.prepareStatement(dropTableSQL);
              PreparedStatement create = conn.prepareStatement(createTableSQL)) {
 

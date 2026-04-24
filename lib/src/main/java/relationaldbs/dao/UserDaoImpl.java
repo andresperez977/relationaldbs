@@ -7,9 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-
-
 import relationaldbs.model.User;
+import relationaldbs.util.DBHelper;
 
 public class UserDaoImpl implements UserDao {
 
@@ -29,7 +28,7 @@ public class UserDaoImpl implements UserDao {
 		String insertSQL = "insert into users(name,password,balance,email,phone,age,gender,city) "
 				+ "values (?,?,?,?,?,?,?,?)";
 
-		try (Connection conn = );
+		try (Connection conn = DBHelper.getConnection();
 				PreparedStatement pss =
 						conn.prepareStatement(insertSQL);) {
 			pss.setString(1,user.getName());
@@ -56,7 +55,7 @@ public class UserDaoImpl implements UserDao {
 	public boolean delete(Long id) {
 		 String deleteSQL = "DELETE FROM users WHERE id = ?";
 
-		    try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+		    try (Connection conn =  DBHelper.getConnection();
 		         PreparedStatement pss = conn.prepareStatement(deleteSQL)) {
 
 		        pss.setLong(1, id);
@@ -78,7 +77,7 @@ public class UserDaoImpl implements UserDao {
 		 String updateSQL = "insert into users(name,password,balance,email,phone,age,gender,city) "
 					+ "values (?,?,?,?,?,?,?,?)";
 
-		    try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+		    try (Connection conn =DBHelper.getConnection();
 		         PreparedStatement pss = conn.prepareStatement(updateSQL)) {
 
 		        pss.setString(1, user.getName());
@@ -104,7 +103,7 @@ public class UserDaoImpl implements UserDao {
 		
 		 String findSQL = "SELECT * FROM users WHERE id = ?";
 
-		    try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+		    try (Connection conn = DBHelper.getConnection();
 		         PreparedStatement pss = conn.prepareStatement(findSQL)) {
 
 		        pss.setLong(1, id);
@@ -134,7 +133,7 @@ public class UserDaoImpl implements UserDao {
 	public List<User> findall() {
 		 String findSQL = "SELECT * FROM users";
 
-		    try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+		    try (Connection conn = DBHelper.getConnection();
 		         PreparedStatement pss = conn.prepareStatement(findSQL)) {
 
 		        
@@ -156,7 +155,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public boolean createTable() {
 		// TODO Auto-generated method stub
-		try (Connection conn = DriverManager.getConnection(postgresqlURL, username, password);
+		try (Connection conn = DBHelper.getConnection();
 				PreparedStatement drop =
 						conn.prepareStatement(dropTableSQL ); PreparedStatement create =
 						conn.prepareStatement(createTableSQL );) {
